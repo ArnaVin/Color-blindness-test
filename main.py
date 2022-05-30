@@ -1,5 +1,6 @@
 import cv2
 import random
+import keyboard
 
 img = cv2.imread('test.jpg') # black image as background
 img = cv2.resize(img, (1000, 800)) 
@@ -31,8 +32,7 @@ img = cv2.putText(img, window_name, (320,200), cv2.FONT_HERSHEY_TRIPLEX,
 img = cv2.putText(img, 'press x to exit', (385, 700), font, 
                    fontScale, (255,255,255), thickness2, cv2.LINE_AA)
 
-key = True
-while (key):
+while (True):
 
     
     # randomly select color
@@ -49,7 +49,9 @@ while (key):
 
     cv2.imshow(window_name, img)
     cv2.waitKey(0)    
-
+    if (keyboard.read_key() == "x"):
+        cv2.destroyWindow(window_name)
+        break
     #displaying color name on the screen
     img = cv2.putText(img, name[r1], p1, font, 
                    fontScale, (255,255,255), thickness2, cv2.LINE_AA)
@@ -63,9 +65,8 @@ while (key):
     img = cv2.circle(img, p1, 100, (0,0,0), thickness1)
     img = cv2.circle(img, p2, 100, (0,0,0), thickness1)
 
-    char = str(input())
-    if (char == 'x'):
-        key = False
+    # exit condition
+    if (keyboard.read_key() == "x"):
         cv2.destroyWindow(window_name)
         break
 
